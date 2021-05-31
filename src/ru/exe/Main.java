@@ -34,25 +34,19 @@ public class Main {
 	 */
 	Element[] findTheNeighbors(Element element) {
 
-		Element[] found = {
-				sourceArray[element.getX()][element.getY()],
-				sourceArray[element.getX() - 1][element.getY() - 1],
-				sourceArray[element.getX() - 1][element.getY()],
-				sourceArray[element.getX() - 1][element.getY() + 1],
-				sourceArray[element.getX()][element.getY() - 1],
-				sourceArray[element.getX()][element.getY() + 1],
-				sourceArray[element.getX() + 1][element.getY() - 1],
-				sourceArray[element.getX() + 1][element.getY()],
-				sourceArray[element.getX() + 1][element.getY() + 1]
-			};
+		Element[] found = { sourceArray[element.getX()][element.getY()],
+				sourceArray[element.getX() - 1][element.getY() - 1], sourceArray[element.getX() - 1][element.getY()],
+				sourceArray[element.getX() - 1][element.getY() + 1], sourceArray[element.getX()][element.getY() - 1],
+				sourceArray[element.getX()][element.getY() + 1], sourceArray[element.getX() + 1][element.getY() - 1],
+				sourceArray[element.getX() + 1][element.getY()], sourceArray[element.getX() + 1][element.getY() + 1] };
 		return found;
 	}
-	
+
 	/*
 	 * Method which prints all matrix.
-	 * */
-	void printAll () {
-		
+	 */
+	void printAll() {
+
 		for (Element[] element : sourceArray) {
 			for (Element newElement : element) {
 				System.out.print(newElement + "  ");
@@ -61,25 +55,31 @@ public class Main {
 		}
 		System.out.println();
 	}
-	
+
 	public static void main(String[] args) {
 
 		// creating new object of Main class for using methods.
 		Main main = new Main();
-		
+
 		// fill the main multidimensional array.
 		main.fillTheArray(sourceArray);
-		
+
 		main.printAll(); // printed all array if necessary.
 
 		// creating new object of Element class for passing as parameter at find method.
 		Element element = new Element(5, 2);
-		
+
 		/*
-		 * creating new stream by Stream API for printing the result array
-		 * which include the filtered objects.
-		 * */
-		Stream<Element> stream = Stream.of(main.findTheNeighbors(element));
-		stream.forEach(scndStrm ->System.out.println(scndStrm));
+		 * creating new stream by Stream API for printing the result array which include
+		 * the filtered objects.
+		 */
+		try {
+			Stream<Element> stream = Stream.of(main.findTheNeighbors(element));
+			stream.forEach(scndStrm -> System.out.println(scndStrm));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.printf("One of input parameters are bigger/smaller then bound of array."
+					+ "Element which you try to finding is:"
+					+ sourceArray[element.getX()][element.getY()]);
+		}
 	}
 }
